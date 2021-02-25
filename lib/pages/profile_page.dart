@@ -9,12 +9,65 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  var menu = ['Авторизация','Редактировать профиль','Служба поддержки','Настройки','Выход'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar('Мой профиль'),
       backgroundColor: Colors.white,
-      body: Container(),
+      body: Container(child: 
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+        Center(child: Image.asset('assets/images/Title.png', width: MediaQuery.of(context).size.width*0.8,)),
+        Image.asset('assets/images/_ 2.png', width: MediaQuery.of(context).size.width*0.4,),
+        SizedBox(height: 20),
+        Container(
+          decoration: BoxDecoration(color: Colors.indigo[900], borderRadius: BorderRadius.circular(20)),
+          width: MediaQuery.of(context).size.width*0.85,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 5,
+                itemBuilder: (_, index) {
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 2.5),
+                    child: ListTile(
+                      title: Text(menu[index],
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      trailing: Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white,),
+                      // tileColor: Colors.white,
+                      onTap: () {
+                        // if (isReg == true) {
+                          if (index == 0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage()),
+                            );
+                          } else if (index == 1) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()));
+                          } else if (index == 2) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  ProfilePage()));
+                          }
+                        // } else {
+                        //   showCustomAlert();
+                        // }
+                      },
+                    ),
+                  );
+                }),
+          ),
+          ),
+      ],),),
     );
   }
 }
