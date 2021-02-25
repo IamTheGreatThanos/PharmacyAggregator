@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/pages/sign_in_page.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -45,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage()),
+                                  builder: (context) => SignInPage()),
                             );
                           } else if (index == 1) {
                             Navigator.push(
