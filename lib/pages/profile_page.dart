@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
+import 'package:pharmacy_aggregator/core/constants.dart';
 
 class ProfilePage extends StatefulWidget {
 
