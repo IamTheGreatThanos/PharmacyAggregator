@@ -10,7 +10,7 @@ Widget buildAppBar(String title) {
       title: Text(title,
           style: TextStyle(
               color: Colors.indigo[900] , //AppColors.mainTextColor,
-              // fontFamily: 'Montserrat Regular',
+              fontFamily: 'Montserrat Regular',
               fontSize: 18)),
       brightness: Brightness.light,
       automaticallyImplyLeading: true,
