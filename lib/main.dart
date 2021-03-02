@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_aggregator/pages/profile_page.dart';
+import 'file:///D:/projects/pharmacy_aggregator/lib/pages/profile/profile_page.dart';
 
 import 'bottom_navigation_page.dart';
 
