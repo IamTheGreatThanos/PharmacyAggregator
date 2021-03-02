@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/pages/profile_page.dart';
 
-import 'home_page.dart';
+import 'bottom_navigation_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.indigo[300],
+        canvasColor: Colors.indigo[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ProfilePage(),
+      home: BottomNavigationPage(),
     );
   }
 }
