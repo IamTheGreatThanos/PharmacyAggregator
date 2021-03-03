@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/model/Notification.dart';
+import 'package:pharmacy_aggregator/model/notification.dart';
 
 class NotificationItem extends StatelessWidget {
 

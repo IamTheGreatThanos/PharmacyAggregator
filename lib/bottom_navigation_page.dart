@@ -6,7 +6,6 @@ import 'file:///D:/projects/pharmacy_aggregator/lib/pages/notification/notificat
 import 'file:///D:/projects/pharmacy_aggregator/lib/pages/profile/profile_page.dart';
 import 'file:///D:/projects/pharmacy_aggregator/lib/pages/record/record_page.dart';
 import 'package:pharmacy_aggregator/pages/sign_in_page.dart';
-
 import 'core/constants.dart';
 
 class BottomNavigationPage extends StatefulWidget {
@@ -18,7 +17,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     HomePage(),
-    NotificationItem(),
+    NotificationPage(),
     RecordPage(),
     ProfilePage()
   ];
