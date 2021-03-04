@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -49,15 +50,18 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Лекарственные препараты"),
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Медицинские изделия и приборы"),
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Травы, сборы, бальзамы"),
                   ],
@@ -69,15 +73,18 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Витамины и БАДы"),
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Косметика  и средства гигиены"),
                     CircleButton(
-                        onTap: () => print("Cool"),
+                        onTap: () =>  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationPage() )),
                         iconData: Icons.favorite_border,
                         titleText: "Мама и малыш"),
                   ],
