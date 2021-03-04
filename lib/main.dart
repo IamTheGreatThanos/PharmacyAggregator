@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/projects/pharmacy_aggregator/lib/pages/profile/profile_page.dart';
-
 import 'bottom_navigation_page.dart';
 
 void main() {

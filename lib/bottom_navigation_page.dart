@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/pages/notification/notification_item.dart';
-import 'file:///D:/projects/pharmacy_aggregator/lib/pages/home/home_page.dart';
-import 'file:///D:/projects/pharmacy_aggregator/lib/pages/notification/notification_page.dart';
-import 'file:///D:/projects/pharmacy_aggregator/lib/pages/profile/profile_page.dart';
-import 'file:///D:/projects/pharmacy_aggregator/lib/pages/record/record_page.dart';
 import 'package:pharmacy_aggregator/pages/sign_in_page.dart';
 import 'core/constants.dart';
+import 'pages/home/home_page.dart';
+import 'pages/notification/notification_page.dart';
+import 'pages/profile/profile_page.dart';
+import 'pages/record/record_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   @override
