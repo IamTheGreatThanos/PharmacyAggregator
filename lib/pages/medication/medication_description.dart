@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_composition.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_count.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_feature.dart';
 import 'package:pharmacy_aggregator/utill/my_dialog.dart';
 
 class MedicationDescription extends StatefulWidget {
@@ -36,15 +39,23 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
                       getText("Berlin-Chemie"),
                       getTitle("Цена"),
                       getText("от 565 тг"),
-                      getTitle("Наличие"),
-                      getText("200 шт"),
+                      // getTitle("Наличие"),
+                      // getText("200 шт"),
+                      Padding(padding: EdgeInsets.all(10)),
+                      getDropDownText("Наличие", () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationCount()));
+                      }),
                       getDropDownText("Описание", () {
-                        showDialog(context: context, builder: (BuildContext context) {
-                         return  CustomAlertDialog(title : "Описание",);
-                        });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationFeature()));
+                        // showDialog(context: context, builder: (BuildContext context) {
+                        //  return  CustomAlertDialog(title : "Описание",);
+                        // });
                       }),
                       getDropDownText("Состав", () {
-
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationComposition()));
                       })
                     ],
                   ),
@@ -100,7 +111,7 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
                   Text(text, style: TextStyle(color: Colors.black, fontSize: 15, fontFamily: AppFonts.montesseratSemiBold)),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(Icons.arrow_drop_down, color: Colors.black),
+                    child: Icon(Icons.arrow_forward, color: Colors.black),
                   ),
 
                 ],
