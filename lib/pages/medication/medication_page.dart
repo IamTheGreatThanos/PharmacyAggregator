@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/models/medication.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_data.dart';
+
 import 'package:pharmacy_aggregator/pages/medication/medication_item.dart';
 
 class MedicationPage extends StatefulWidget {
@@ -41,8 +43,8 @@ class _MedicationPageState extends State<MedicationPage> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => NotificationDescriptionPage(item: medicationList[index])));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MedicationData()));
                   },
                   child: MedicationItem(item: medicationList[index]));
             }),
