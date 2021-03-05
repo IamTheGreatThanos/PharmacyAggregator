@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/pages/notification/notification_item.dart';
-import 'package:pharmacy_aggregator/pages/sign_in_page.dart';
+import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'core/constants.dart';
 import 'pages/home/home_page.dart';
 import 'pages/notification/notification_page.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
-import 'package:pharmacy_aggregator/model/record.dart';
+import 'package:pharmacy_aggregator/models/record.dart';
 import 'package:pharmacy_aggregator/pages/record/record_item.dart';
 
 class RecordPage extends StatefulWidget {

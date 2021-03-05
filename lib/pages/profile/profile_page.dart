@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/pages/sign_in_page.dart';
+import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
+import 'package:pharmacy_aggregator/pages/profile/settings_page.dart';
+import 'package:pharmacy_aggregator/pages/profile/support_page.dart';
+
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -52,8 +56,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProfilePage()));
+                                    builder: (context) => EditProfilePage()));
                           } else if (index == 2) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  SupportPage()));
+                          } else if (index == 3) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  SettingsPage()));
+                          } else if (index == 4) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

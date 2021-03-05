@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
-import 'package:pharmacy_aggregator/model/notification.dart';
+import 'package:pharmacy_aggregator/models/notification.dart';
 import 'package:pharmacy_aggregator/pages/notification/notification_item.dart';
 import 'notification_description_page.dart';
 

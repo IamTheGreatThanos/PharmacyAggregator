@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_aggregator/model/record.dart';
+import 'package:pharmacy_aggregator/models/record.dart';
 
 class RecordItem extends StatelessWidget {
 

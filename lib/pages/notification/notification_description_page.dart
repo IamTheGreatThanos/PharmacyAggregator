@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/model/notification.dart';
+import 'package:pharmacy_aggregator/models/notification.dart';
 
 class NotificationDescriptionPage extends StatelessWidget {
 

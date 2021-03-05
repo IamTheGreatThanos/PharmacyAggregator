@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/model/medication.dart';
+import 'package:pharmacy_aggregator/models/medication.dart';
 
 class MedicationItem extends StatelessWidget {
   final Medication item;
