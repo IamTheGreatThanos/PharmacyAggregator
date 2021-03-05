@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
@@ -14,7 +13,6 @@ class SupportPage extends StatefulWidget {
 }
 
 class _SupportPageState extends State<SupportPage> {
-  var menu = ['Авторизация','Редактировать профиль','Служба поддержки','Настройки','Выход'];
   TextEditingController nameController = TextEditingController();
   TextEditingController textController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
