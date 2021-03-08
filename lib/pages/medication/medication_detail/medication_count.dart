@@ -39,6 +39,7 @@ class _MedicationCountState extends State<MedicationCount> {
               }),
             );
           }),
+          Divider(color: Colors.black),
       ]),
     );
   }
