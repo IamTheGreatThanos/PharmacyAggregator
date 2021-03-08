@@ -4,7 +4,6 @@ import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_composition.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_count.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_feature.dart';
-import 'package:pharmacy_aggregator/utill/my_dialog.dart';
 
 class MedicationDescription extends StatefulWidget {
   const MedicationDescription({Key key}) : super(key: key);

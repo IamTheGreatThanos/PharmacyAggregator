@@ -15,29 +15,41 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   TextEditingController _searchController = new TextEditingController();
   FocusNode focusNode;
-
 
   List<Medication> medicationList = [
     Medication(
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie", "Мезим форте таб. п/о №80", "от 565 тг", false),
+        "Berlin-Chemie",
+        "Мезим форте таб. п/о №80",
+        "от 565 тг",
+        false),
     Medication(
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie", "Мезим форте таб. п/о №80", "от 100 тг", false),
+        "Berlin-Chemie",
+        "Мезим форте таб. п/о №80",
+        "от 100 тг",
+        false),
     Medication(
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie", "Мезим форте таб. п/о №80", "от 200 тг", true),
+        "Berlin-Chemie",
+        "Мезим форте таб. п/о №80",
+        "от 200 тг",
+        true),
     Medication(
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie", "Мезим форте таб. п/о №80", "от 300 тг", false),
+        "Berlin-Chemie",
+        "Мезим форте таб. п/о №80",
+        "от 300 тг",
+        false),
     Medication(
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie", "Мезим форте таб. п/о №80", "от 456 тг", true),
+        "Berlin-Chemie",
+        "Мезим форте таб. п/о №80",
+        "от 456 тг",
+        true),
   ];
-
 
   @override
   void initState() {
@@ -46,7 +58,6 @@ class _SearchPageState extends State<SearchPage> {
     focusNode = FocusNode();
     focusNode.requestFocus();
   }
-
 
   @override
   void dispose() {
@@ -63,41 +74,40 @@ class _SearchPageState extends State<SearchPage> {
       appBar: buildAppBar('Поиск лекарств'),
       backgroundColor: Colors.white,
       body: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           children: [
-            TextField(
-              onSubmitted: (value) {
-                getProjectDetails(value);
-              },
-              focusNode: focusNode,
-              controller: _searchController,
-              cursorColor: Colors.indigo[300],
-              decoration: InputDecoration(
-                hintText: "Введите название лекарства",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                hoverColor: Colors.indigo,
-                suffixIcon: Icon(Icons.search),
-                contentPadding:
-                EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              ),
-            ),
-            Expanded(
-              child: projectWidget()
-                // child: ListView.builder(
-                //   scrollDirection: Axis.vertical,
-                //     itemCount: medicationList.length,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       return GestureDetector(
-                //           onTap: () {
-                //             Navigator.push(context,
-                //                 MaterialPageRoute(builder: (context) => MedicationData()));
-                //           },
-                //           child: MedicationItem(item: medicationList[index]));
-                //     }),
-              ),
+            // TextField(
+            //   onSubmitted: (value) {
+            //     getProjectDetails(value);
+            //   },
+            //   focusNode: focusNode,
+            //   controller: _searchController,
+            //   cursorColor: Colors.indigo[300],
+            //   decoration: InputDecoration(
+            //     hintText: "Введите название лекарства",
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     hoverColor: Colors.indigo,
+            //     suffixIcon: Icon(Icons.search),
+            //     contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+            //   ),
+            // ),
+
+            // Flexible(child: projectWidget()),
+
+            // child: ListView.builder(
+            //   scrollDirection: Axis.vertical,
+            //     itemCount: medicationList.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return GestureDetector(
+            //           onTap: () {
+            //             Navigator.push(context,
+            //                 MaterialPageRoute(builder: (context) => MedicationData()));
+            //           },
+            //           child: MedicationItem(item: medicationList[index]));
+            //     }),
           ],
         ),
       ),
