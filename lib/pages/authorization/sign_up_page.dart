@@ -4,24 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/password_recovery_page.dart';
-import 'package:pharmacy_aggregator/pages/authorization/sign_up_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
 
-class SignInPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  var menu = ['Авторизация','Редактировать профиль','Служба поддержки','Настройки','Выход'];
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController loginController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar('Авторизация'),
+      appBar: buildAppBar('Регистрация'),
       backgroundColor: Colors.white,
       body: Container(child: 
       Column(
@@ -38,12 +37,6 @@ class _SignInPageState extends State<SignInPage> {
               children: [
                 Text('Добро пожаловать', style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: 'Montserrat Regular'),),
                 SizedBox(height: 10),
-                GestureDetector(
-                  child: Text('Добро пожаловать', style: TextStyle(color: Colors.white, fontSize: 14, fontFamily: 'Montserrat Regular', decoration: TextDecoration.underline), ),
-                  onTap: (){
-                    print('Tapped');
-                  },
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,6 +49,21 @@ class _SignInPageState extends State<SignInPage> {
                     child: TextFormField(
                       keyboardType: TextInputType.text,
                       controller: loginController,
+                      decoration: InputDecoration(
+                        filled: true, 
+                        fillColor: Colors.white
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text('Email', style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Montserrat Regular')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: emailController,
                       decoration: InputDecoration(
                         filled: true, 
                         fillColor: Colors.white
@@ -78,17 +86,6 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Center(
-                      child: GestureDetector(
-                        child: Text('Забыли пароль?', style: TextStyle(color: Colors.amber[200], fontSize: 14, fontFamily: 'Montserrat Regular', decoration: TextDecoration.underline,)),
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => PasswordRecoveryPage()));
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: ButtonTheme(
@@ -101,7 +98,7 @@ class _SignInPageState extends State<SignInPage> {
                             isConnected.then((value) => {
                               if (value){
                                 createAlertDialog(context),
-                                reg(loginController.text,
+                                reg(loginController.text, emailController.text,
                                     passwordController.text.trim())
                               }
                               else{
@@ -134,21 +131,6 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Center(
-                      child: GestureDetector(
-                        child: Text('Зарегистрировать корпоративный аккаунт', style: TextStyle(color: Colors.white, fontSize: 10, fontFamily: 'Montserrat Regular', decoration: TextDecoration.underline), ),
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => SignUpPage()) //login, password ,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
                 ],),
               ],
             )
@@ -158,9 +140,10 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void reg(String login, String password) async {
+  void reg(String login, String email, String password) async {
     String jsonString = await registration(
       login,
+      email,
       password,
     );
     Map<String, dynamic> status = jsonDecode(jsonString);
@@ -172,7 +155,7 @@ class _SignInPageState extends State<SignInPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => SignInPage()) //login, password ,
+            builder: (BuildContext context) => SignUpPage()) //login, password ,
       );
     } else {
       Navigator.pop(context);
@@ -184,13 +167,14 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  Future<String> registration(String login, String password) async {
-    final response = await http.post(AppConstants.baseUrl + "users/login/",
+  Future<String> registration(String login,String email, String password) async {
+    final response = await http.post(AppConstants.baseUrl + "users/register/",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
           'username': login,
+          'email': email,
           'password': password,
         }));
     if (response.statusCode == 200) {

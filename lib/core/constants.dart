@@ -13,5 +13,5 @@ class AppFonts {
 }
 
 class AppConstants {
-  static final String baseUrl = "https://192.168.1.1/";
+  static final String baseUrl = "http://phaggregator.herokuapp.com/";
 }
