@@ -27,7 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
         Center(child: Image.asset('assets/images/Title.png', width: MediaQuery.of(context).size.width*0.9,)),
-        SizedBox(height: 30),
+        SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(color: Colors.indigo[900], borderRadius: BorderRadius.circular(20)),
           width: MediaQuery.of(context).size.width*0.85,
@@ -35,6 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
+                SizedBox(height: 20),
                 Text('Добро пожаловать', style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: 'Montserrat Regular'),),
                 SizedBox(height: 10),
                 Column(
@@ -122,7 +123,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: Colors.amber[300],
                           elevation: 3.0,
                           child: Text(
-                            "LOG IN",
+                            "SIGN UP",
                             style: TextStyle(
                               fontSize: 16,
                             ),
