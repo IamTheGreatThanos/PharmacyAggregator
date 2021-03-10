@@ -12,7 +12,7 @@ class MedicationItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       height: MediaQuery.of(context).size.width / 3.2,
-      child: Flexible(
+
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,7 +61,7 @@ class MedicationItem extends StatelessWidget {
             )
           ],
         ),
-      ),
+
     );
   }
 }

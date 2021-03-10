@@ -27,7 +27,6 @@ class _NotificationPageState extends State<NotificationPage> {
         "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
         "У вас заканчивается количество лекарств. Необходимо закупить лекарства из этого списка.",
         "Необходимость закупки лекарств"),
-
   ];
 
   @override
