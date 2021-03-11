@@ -5,6 +5,9 @@ import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/password_recovery_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../bottom_navigation_page.dart';
 
 class SignUpPage extends StatefulWidget {
 
@@ -20,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: buildAppBar('Регистрация'),
       backgroundColor: Colors.white,
       body: Container(child: 
@@ -78,6 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                     child: TextFormField(
+                      obscureText: true,
                       keyboardType: TextInputType.text,
                       controller: passwordController,
                       decoration: InputDecoration(
@@ -148,16 +153,21 @@ class _SignUpPageState extends State<SignUpPage> {
       password,
     );
     Map<String, dynamic> status = jsonDecode(jsonString);
-    // print(status['status']);
 
     if (status['status'] == "ok") {
-      // print("status ok");
       Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => SignUpPage()) //login, password ,
-      );
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(
+        'Регистрация прошла успешна, войдите в свою учетную запись!',
+      )));
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setBool('isReg', true);
+      // Navigator.pop(context);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (BuildContext context) => BottomNavigationPage()) //login, password ,
+      // );
     } else {
       Navigator.pop(context);
       _scaffoldKey.currentState.showSnackBar(SnackBar(

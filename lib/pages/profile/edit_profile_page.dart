@@ -5,6 +5,7 @@ import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -14,11 +15,12 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController loginController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController adressController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: buildAppBar('Редактировать'),
       backgroundColor: Colors.white,
       body: Column(
@@ -70,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: adressController,
+                    controller: addressController,
                     decoration: InputDecoration(
                       filled: true, 
                       fillColor: Colors.black12
@@ -89,8 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             var isConnected = checkInternetConnection();
                             isConnected.then((value) => {
                               if (value){
-                                createAlertDialog(context),
-                                change(loginController.text)
+                                change(loginController.text,emailController.text,addressController.text)
                               }
                               else{
                                 showAlert(
@@ -129,43 +130,60 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  void change(String login) async {
-    String jsonString = await changeProfile(
-      login
-    );
-    Map<String, dynamic> status = jsonDecode(jsonString);
-    // print(status['status']);
-
-    if (status['status'] == "ok") {
-      // print("status ok");
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => SignInPage()) //login, password ,
+  void change(String login,String email,String address) async {
+    if (login != '' && email != '' && address != ''){
+      createAlertDialog(context);
+      String jsonString = await changeProfile(
+        login,
+        email,
+        address
       );
-    } else {
-      Navigator.pop(context);
+      Map<String, dynamic> status = jsonDecode(jsonString);
+      print(status);
+
+      if (status['status'] == "ok") {
+        // print("status ok");
+        Navigator.pop(context);
+        Navigator.pop(context);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (BuildContext context) => SignInPage()) //login, password ,
+        // );
+      } else {
+        Navigator.pop(context);
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+          'Проверьте соединения с интернетом или попробуйте позже!',
+        )));
+        // print("status no ok");
+      }
+    }
+    else{
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(
-        'Проверьте соединения с интернетом или попробуйте позже!',
-      )));
-      // print("status no ok");
+            content: Text(
+          'Заполните все поля!',
+        )));
     }
   }
 
-  Future<String> changeProfile(String login) async {
-    final response = await http.post(AppConstants.baseUrl + "users/phone/",
+  Future<String> changeProfile(String login,String email,String address,) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var id = prefs.getInt('uid');
+    final response = await http.post(AppConstants.baseUrl + "users/list/${id}/",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'login': login,
+          'username': login,
+          'email': email,
+          'address': address,
+          
         }));
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception("Falied to registration");
+      print("Falied to change profile.");
     }
   }
 }

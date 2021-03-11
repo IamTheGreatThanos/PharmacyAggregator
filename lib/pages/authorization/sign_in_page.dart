@@ -6,6 +6,9 @@ import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/password_recovery_page.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_up_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../bottom_navigation_page.dart';
 
 class SignInPage extends StatefulWidget {
 
@@ -21,6 +24,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: buildAppBar('Авторизация'),
       backgroundColor: Colors.white,
       body: Container(child: 
@@ -69,6 +73,7 @@ class _SignInPageState extends State<SignInPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                     child: TextFormField(
+                      obscureText: true,
                       keyboardType: TextInputType.text,
                       controller: passwordController,
                       decoration: InputDecoration(
@@ -159,20 +164,23 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void reg(String login, String password) async {
-    String jsonString = await registration(
+    String jsonString = await logIn(
       login,
       password,
     );
     Map<String, dynamic> status = jsonDecode(jsonString);
-    // print(status['status']);
+    print(status);
 
-    if (status['status'] == "ok") {
-      // print("status ok");
+    if (status['uid'] != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isReg', true);
+      prefs.setString('Token', status['key']);
+      prefs.setInt('uid', status['uid']);
       Navigator.pop(context);
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => SignInPage()) //login, password ,
+            builder: (BuildContext context) => BottomNavigationPage()) //login, password ,
       );
     } else {
       Navigator.pop(context);
@@ -184,7 +192,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  Future<String> registration(String login, String password) async {
+  Future<String> logIn(String login, String password) async {
     final response = await http.post(AppConstants.baseUrl + "users/login/",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -196,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception("Falied to registration");
+      print("Falied to log in.");
     }
   }
 }
