@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
+import 'package:pharmacy_aggregator/models/pharmacy.dart';
+
+import '../pharmacy_page.dart';
 
 class MedicationCount extends StatefulWidget {
+  List<dynamic> listPharmacy;
+  String title;
+  MedicationCount(this.listPharmacy, this.title);
   @override
   _MedicationCountState createState() => _MedicationCountState();
 }
 
 class _MedicationCountState extends State<MedicationCount> {
-  var array = ['Аптека "Форте+" - 200шт', 'Аптека "Биосфера" - 160шт'];
+  var array = [];
+  var array2 = [];
+
+  @override
+  void initState() {
+    for (var i in widget.listPharmacy){
+      array.add('"${i['pharmacy']['name']}" - ${i['count']} шт.');
+      array2.add('от ${i['price']} тг.');
+    }
+    super.initState();
+
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar("Мезим форте таб. п/о №80"),
+      appBar: buildAppBar(widget.title),
       body: Column(children:[
         Container(
           width: MediaQuery.of(context).size.width*0.9, 
@@ -32,10 +51,10 @@ class _MedicationCountState extends State<MedicationCount> {
               child: ListTile(
                 title: Text(array[index],
                     style: TextStyle(fontSize: 15, color: Colors.black54)),
-                trailing: Text('1638 тг', style: TextStyle(fontSize: 15, color: Colors.black54)),
+                trailing: Text(array2[index], style: TextStyle(fontSize: 15, color: Colors.black54)),
                 tileColor: Colors.white,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicationCount()),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PharmacyPage(Pharmacy(widget.listPharmacy[index]['index'],widget.listPharmacy[index]['pharmacy'], widget.listPharmacy[index]['count'], widget.listPharmacy[index]['price'],widget.listPharmacy[index]['product']))),);
               }),
             );
           }),

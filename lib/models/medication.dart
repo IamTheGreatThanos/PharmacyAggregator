@@ -1,10 +1,12 @@
 class Medication{
-
   final String img;
-  final String title;
+  final String manufacturer;
+  final String name;
   final String description;
   final String price;
   final bool isHave;
+  final String composition;
+  final List<dynamic> available;
 
-  const Medication(this.img, this.description, this.title,this.price,this.isHave);
+  const Medication(this.name, this.manufacturer, this.img, this.description, this.price, this.isHave, this.composition, this.available);
 }

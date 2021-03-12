@@ -27,18 +27,7 @@ class _MedicationPageState extends State<MedicationPage> {
     getProducts();
   }
 
-  List<Medication> medicationList = [
-   Medication(   "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-      "Berlin-Chemie","Мезим форте таб. п/о №80", "от 565 тг", false),
-    Medication(   "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie","Мезим форте таб. п/о №80", "от 565 тг", false),
-    Medication(   "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie","Мезим форте таб. п/о №80", "от 565 тг", true),
-    Medication(   "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie","Мезим форте таб. п/о №80", "от 565 тг", false),
-    Medication(   "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie","Мезим форте таб. п/о №80", "от 565 тг", true),
-  ];
+  List<Medication> medicationList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +44,7 @@ class _MedicationPageState extends State<MedicationPage> {
               return GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()));
+                        MaterialPageRoute(builder: (context) => MedicationData(medicationList[index])));
                   },
                   child: MedicationItem(item: medicationList[index]));
             }),
@@ -85,7 +74,7 @@ class _MedicationPageState extends State<MedicationPage> {
         print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
-          list.add(Medication(j['photo'], j['manufacturer']['name'], j['name'],'от ' + j['available'][0]['price'].toString() + 'тг.', true));
+          list.add(Medication(j['name'], j['manufacturer']['name'], j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
         }
         setState(() {
           medicationList = list;

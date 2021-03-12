@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_composition.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_count.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_feature.dart';
 
+// ignore: must_be_immutable
 class MedicationDescription extends StatefulWidget {
-  const MedicationDescription({Key key}) : super(key: key);
-
+  Medication medication;
+  MedicationDescription(this.medication);
   @override
   _MedicationDescriptionState createState() => _MedicationDescriptionState();
 }
@@ -23,7 +25,7 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
             child: Column(
               children: [
                 Image.network(
-                  "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
+                  widget.medication.img,
                   width: MediaQuery.of(context).size.width / 3,
                   height: MediaQuery.of(context).size.width / 3,
                 ),
@@ -33,28 +35,28 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       getTitle("Торговое название"),
-                      getText("Мезим форте",),
+                      getText(widget.medication.name),
                       getTitle("Производитель"),
-                      getText("Berlin-Chemie"),
+                      getText(widget.medication.manufacturer),
                       getTitle("Цена"),
-                      getText("от 565 тг"),
+                      getText(widget.medication.price),
                       // getTitle("Наличие"),
                       // getText("200 шт"),
                       Padding(padding: EdgeInsets.all(10)),
                       getDropDownText("Наличие", () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MedicationCount()));
+                            MaterialPageRoute(builder: (context) => MedicationCount(widget.medication.available, widget.medication.name)));
                       }),
                       getDropDownText("Описание", () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MedicationFeature()));
+                            MaterialPageRoute(builder: (context) => MedicationFeature(widget.medication.description)));
                         // showDialog(context: context, builder: (BuildContext context) {
                         //  return  CustomAlertDialog(title : "Описание",);
                         // });
                       }),
                       getDropDownText("Состав", () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MedicationComposition()));
+                            MaterialPageRoute(builder: (context) => MedicationComposition(widget.medication.composition)));
                       })
                     ],
                   ),

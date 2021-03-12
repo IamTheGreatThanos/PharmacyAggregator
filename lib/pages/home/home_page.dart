@@ -145,27 +145,27 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
                   ],
                 ),
               ),
@@ -175,27 +175,27 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
-                    CircleImage(
-                        onTap: () => {
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MedicationData()))
-                    },
-                        iconData: Icons.favorite_border,
-                        titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
                   ],
                 ),
               )

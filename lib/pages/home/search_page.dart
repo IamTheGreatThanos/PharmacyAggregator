@@ -18,38 +18,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController _searchController = new TextEditingController();
   FocusNode focusNode;
 
-  List<Medication> medicationList = [
-    Medication(
-        "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie",
-        "Мезим форте таб. п/о №80",
-        "от 565 тг",
-        false),
-    Medication(
-        "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie",
-        "Мезим форте таб. п/о №80",
-        "от 100 тг",
-        false),
-    Medication(
-        "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie",
-        "Мезим форте таб. п/о №80",
-        "от 200 тг",
-        true),
-    Medication(
-        "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie",
-        "Мезим форте таб. п/о №80",
-        "от 300 тг",
-        false),
-    Medication(
-        "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg",
-        "Berlin-Chemie",
-        "Мезим форте таб. п/о №80",
-        "от 456 тг",
-        true),
-  ];
+  List<Medication> medicationList = [];
 
   @override
   void initState() {
@@ -125,7 +94,7 @@ class _SearchPageState extends State<SearchPage> {
         return GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MedicationData()));
+                MaterialPageRoute(builder: (context) => MedicationData(medicationList[0])));
           },
           child: ListView.builder(
             itemCount: projectSnap.data.length,

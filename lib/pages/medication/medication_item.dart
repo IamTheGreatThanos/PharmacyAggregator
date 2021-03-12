@@ -28,7 +28,7 @@ class MedicationItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    item.title,
+                    item.name,
                     maxLines: 1,
                     style: TextStyle(
                         fontFamily: AppFonts.montesseratSemiBold, fontSize: 16),

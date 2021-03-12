@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/models/medication.dart';
+import 'package:pharmacy_aggregator/models/pharmacy.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_description.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_review.dart';
+import 'package:pharmacy_aggregator/pages/medication/pharmacy_description.dart';
 
-class MedicationData extends StatefulWidget {
-  Medication medication;
-  MedicationData(this.medication);
+class PharmacyPage extends StatefulWidget {
+  Pharmacy pharmacy;
+  PharmacyPage(this.pharmacy);
   @override
-  _MedicationDataState createState() => _MedicationDataState();
+  _PharmacyPageState createState() => _PharmacyPageState();
 }
 
-class _MedicationDataState extends State<MedicationData> {
+class _PharmacyPageState extends State<PharmacyPage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 1, child: Scaffold(
+    return DefaultTabController(length: 2, child: Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -36,12 +37,15 @@ class _MedicationDataState extends State<MedicationData> {
           TabBar(
               labelColor: Colors.black45,
               tabs: [
-                Tab(text: "Описание"),
+                Tab(text: "Описание", ),
+                Tab(text:  "Отзывы"),
+
               ]),
       ),
       body: new TabBarView(
         children: <Widget>[
-          MedicationDescription(widget.medication),
+          PharmacyDescription(widget.pharmacy),
+          MedicationReview() ,
         ],
       ),
       ),
