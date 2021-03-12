@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(1))),
                         iconData: Icons.favorite_border,
                         titleText: "Лекарственные препараты"),
                     CircleButton(
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(2))),
                         iconData: Icons.favorite_border,
                         titleText: "Медицинские изделия и приборы"),
                     CircleButton(
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(3))),
                         iconData: Icons.favorite_border,
                         titleText: "Травы, сборы, бальзамы"),
                   ],
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(4))),
                         iconData: Icons.favorite_border,
                         titleText: "Витамины и БАДы"),
                     CircleButton(
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(5))),
                         iconData: Icons.favorite_border,
                         titleText: "Косметика  и средства гигиены"),
                     CircleButton(
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MedicationPage())),
+                                    builder: (context) => MedicationPage(6))),
                         iconData: Icons.favorite_border,
                         titleText: "Мама и малыш"),
                   ],
