@@ -2,7 +2,7 @@ class Record{
 
   final String name;
   final String code;
-  final String count;
+  final int count;
   final String price;
 
 

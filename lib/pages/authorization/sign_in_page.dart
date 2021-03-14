@@ -168,27 +168,35 @@ class _SignInPageState extends State<SignInPage> {
       login,
       password,
     );
-    Map<String, dynamic> status = jsonDecode(jsonString);
-    print(status);
+    if (jsonString != null){
+      Map<String, dynamic> status = jsonDecode(jsonString);
+      print(status);
 
-    if (status['uid'] != null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isReg', true);
-      prefs.setString('Token', status['key']);
-      prefs.setInt('uid', status['uid']);
+      if (status['uid'] != null) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isReg', true);
+        prefs.setString('Token', status['key']);
+        prefs.setInt('uid', status['uid']);
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => BottomNavigationPage()) //login, password ,
+        );
+      } else {
+        Navigator.pop(context);
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+          'Проверьте соединения с интернетом или попробуйте позже!',
+        )));
+      }
+    }
+    else{
       Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => BottomNavigationPage()) //login, password ,
-      );
-    } else {
-      Navigator.pop(context);
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(
-        'Проверьте соединения с интернетом или попробуйте позже!',
-      )));
-      // print("status no ok");
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+          'Неверный логин или пароль!',
+        )));
     }
   }
 
@@ -204,7 +212,7 @@ class _SignInPageState extends State<SignInPage> {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      print("Falied to log in.");
+      return null;
     }
   }
 }

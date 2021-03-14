@@ -4,6 +4,7 @@ import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'package:pharmacy_aggregator/pages/profile/settings_page.dart';
 import 'package:pharmacy_aggregator/pages/profile/support_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'edit_profile_page.dart';
 
@@ -68,14 +69,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 MaterialPageRoute(
                                     builder: (context) =>  SettingsPage()));
                           } else if (index == 4) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>  ProfilePage()));
+                            quit();
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) => SignInPage()), (Route<dynamic> route) => false);
                           }
-                        // } else {
-                        //   showCustomAlert();
-                        // }
                       },
                     ),
                   );
@@ -84,5 +81,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
       ],),),
     );
+  }
+
+  quit() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isReg', false);
   }
 }
