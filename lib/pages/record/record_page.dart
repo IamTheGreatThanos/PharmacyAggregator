@@ -39,30 +39,50 @@ class _RecordPageState extends State<RecordPage> {
               child: DataTable(
                 columns: [
                   DataColumn(
-                      label: Text(
+                      label: Container(
+                              width: 15,
+                              child:Text(
                     "id",
                     overflow: TextOverflow.ellipsis,
-                  )),
+                  ))),
                   DataColumn(
-                      label: Text("Наименование лекарств",
-                          overflow: TextOverflow.ellipsis)),
+                      label: Container(
+                              width: 180,
+                              child: Text("Наименование лекарств",
+                          overflow: TextOverflow.ellipsis))),
                   DataColumn(
-                      label: Text("Код (Артикул)",
-                          overflow: TextOverflow.ellipsis)),
+                      label: Container(
+                              width: 110,
+                              child:Text("Код (Артикул)",
+                          overflow: TextOverflow.ellipsis))),
                   DataColumn(
-                      label: Text("Кол-во наличии",
-                          overflow: TextOverflow.ellipsis)),
+                      label: Container(
+                              width: 120,
+                              child:Text("Кол-во наличии",
+                          overflow: TextOverflow.ellipsis))),
                   DataColumn(
-                      label: Text("Цена", overflow: TextOverflow.ellipsis)),
+                      label: Container(
+                              width: 60,
+                              child:Text("Цена", overflow: TextOverflow.ellipsis))),
                 ],
                 rows: recordList
                     .map(
                       ((e) => DataRow(cells: [
-                            DataCell(Text((recordList.indexOf(e)+1).toString())),
-                            DataCell(Text(e.name)),
-                            DataCell(Text(e.code)),
-                            DataCell(Text(e.count.toString())),
-                            DataCell(Text(e.price))
+                            DataCell(Container(
+                              width: 15,
+                              child:Text((recordList.indexOf(e)+1).toString()))),
+                            DataCell(Container(
+                              width: 180,
+                              child: Text(e.name))),
+                            DataCell(Container(
+                              width: 60,
+                              child:Text(e.code))),
+                            DataCell(Container(
+                              width: 60,
+                              child:Text(e.count.toString()))),
+                            DataCell(Container(
+                              width: 60,
+                              child:Text(e.price)))
                           ])),
                     )
                     .toList(),
