@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/models/pharmacy.dart';
 import 'package:pharmacy_aggregator/models/review.dart';
 import 'package:pharmacy_aggregator/pages/medication/write_review_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MedicationReview extends StatefulWidget {
+  Pharmacy pharmacy;
+  MedicationReview(this.pharmacy);
   @override
   _MedicationReviewState createState() => _MedicationReviewState();
 }
 
 class _MedicationReviewState extends State<MedicationReview> {
-  List<Review> array = [Review('Марина', '07 января 2021 в 14:05', '1234', 'МаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМарина'),Review('Марина', '07 января 2021 в 14:05', '1234', 'МаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМаринаМарина')];
+  List<Review> reviewList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getReview(widget.pharmacy.id);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +39,7 @@ class _MedicationReviewState extends State<MedicationReview> {
               child: Center(child: Text('Оставить отзыв', style: TextStyle(fontSize: 16, color: Colors.white),))
             ),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => WriteReviewPage()),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => WriteReviewPage(widget.pharmacy)));
             },
           )
         ),
@@ -88,7 +102,7 @@ class _MedicationReviewState extends State<MedicationReview> {
             color: Colors.black,
           ),
           shrinkWrap: true,
-          itemCount: array.length,
+          itemCount: reviewList.length,
           itemBuilder: (_, index) {
             return Container(
               margin: EdgeInsets.only(bottom: 0),
@@ -98,23 +112,20 @@ class _MedicationReviewState extends State<MedicationReview> {
                   Row(children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(array[index].owner, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: Text(reviewList[index].owner, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     ),
-                    Text(array[index].date, style: TextStyle(fontSize: 14, color: Colors.black54))
+                    Text(reviewList[index].date, style: TextStyle(fontSize: 14, color: Colors.black54))
                   ]),
                   Padding(
                       padding: const EdgeInsets.only(left: 20, top: 5),
                       child: Row(children: [
-                        Icon(Icons.star, color: Colors.yellow, size: 20),
-                        Icon(Icons.star, color: Colors.yellow, size: 20),
-                        Icon(Icons.star, color: Colors.yellow, size: 20),
-                        Icon(Icons.star, color: Colors.yellow, size: 20),
-                        Icon(Icons.star, color: Colors.yellow, size: 20),
+                        for (var i = 0; i<reviewList[index].rating.round(); i++) Icon(Icons.star, color: Colors.yellow, size: 20),
+                        for (var i = 0; i<5-reviewList[index].rating.round(); i++) Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20)
                       ]),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10,5,10,5),
-                    child: Text(array[index].text, style: TextStyle(fontSize: 15)),
+                    child: Text(reviewList[index].text, style: TextStyle(fontSize: 15)),
                   ),
                 ],),
               )
@@ -123,5 +134,28 @@ class _MedicationReviewState extends State<MedicationReview> {
           Divider(color: Colors.black)
       ]
     ));
+  }
+
+  getReview(int id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('Token');
+    await http.get(
+      "${AppConstants.baseUrl}product/review/$id",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          "Authorization": "Token $token"
+        },
+      ).then((response) {
+        List<Review> list = List<Review>();
+        var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
+        for (Object i in responseBody){
+          Map<String,dynamic> j = i;
+          list.add(Review(j['author']['username'], j['created_date'], j['rating'], j['text']));
+        }
+        setState(() {
+          reviewList = list;
+        });
+      }).catchError((error) => print(error));
   }
 }

@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
+import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/models/pharmacy.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WriteReviewPage extends StatefulWidget {
+  Pharmacy pharmacy;
+  WriteReviewPage(this.pharmacy);
   @override
   _WriteReviewPageState createState() => _WriteReviewPageState();
 }
 
 class _WriteReviewPageState extends State<WriteReviewPage> {
+  var first = false;
+  var second = false;
+  var third = false;
+  var fourth = false;
+  var fifth = false;
+  var rating = 0;
   TextEditingController nameController = TextEditingController();
+  TextEditingController commentController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: buildAppBar('Аптека "Forte+"'),
       body: Column(
@@ -32,11 +48,61 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: Row(children: [
-                      Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20),
-                      Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20),
-                      Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20),
-                      Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20),
-                      Icon(Icons.star_border_outlined, color: Colors.yellow, size: 20),
+                      GestureDetector(
+                      onTap: () {
+                        first = true;
+                        second = false;
+                        third = false;
+                        fourth = false;
+                        fifth = false;
+                        rating = 1;
+                        setState((){});
+                      },
+                      child:Icon(first ? Icons.star : Icons.star_border_outlined, color: Colors.yellow, size: 20)),
+                      GestureDetector(
+                      onTap: () {
+                        first = true;
+                        second = true;
+                        third = false;
+                        fourth = false;
+                        fifth = false;
+                        rating = 2;
+                        setState((){});
+                      },
+                      child:Icon(second ? Icons.star : Icons.star_border_outlined, color: Colors.yellow, size: 20)),
+                      GestureDetector(
+                      onTap: () {
+                        first = true;
+                        second = true;
+                        third = true;
+                        fourth = false;
+                        fifth = false;
+                        rating = 3;
+                        setState((){});
+                      },
+                      child:Icon(third ? Icons.star : Icons.star_border_outlined, color: Colors.yellow, size: 20)),
+                      GestureDetector(
+                      onTap: () {
+                        first = true;
+                        second = true;
+                        third = true;
+                        fourth = true;
+                        fifth = false;
+                        rating = 4;
+                        setState((){});
+                      },
+                      child:Icon(fourth ? Icons.star : Icons.star_border_outlined, color: Colors.yellow, size: 20)),
+                      GestureDetector(
+                      onTap: () {
+                        first = true;
+                        second = true;
+                        third = true;
+                        fourth = true;
+                        fifth = true;
+                        rating = 5;
+                        setState((){});
+                      },
+                      child:Icon(fifth ? Icons.star : Icons.star_border_outlined, color: Colors.yellow, size: 20)),
                     ],),
                   ), 
                 ),
@@ -61,14 +127,16 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                     hintText: 'Комментарий'
                   ),
                   keyboardType: TextInputType.text,
-                  controller: nameController,
+                  controller: commentController,
                 ),
               ),
             ],)
           ),
         ),
         RaisedButton(
-          onPressed: () {},
+          onPressed: () {
+            sendReview();
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30)
           ),
@@ -80,5 +148,39 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
         ),
       ])
     );
+  }
+
+  sendReview() async{
+    if (rating != 0 && nameController.text != '' && commentController.text != ''){
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      var token = sharedPreferences.getString('Token');
+      final response = await http.post(AppConstants.baseUrl + "product/create/review/",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          "Authorization": "Token $token"
+        },
+        body: jsonEncode(<String, dynamic>{
+          'pharmacy': widget.pharmacy.id,
+          'text': commentController.text,
+          'rating': rating.toDouble()
+        }));
+        print(response.body);
+    if (response.statusCode == 200) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(
+        'Успешно!',
+      )));
+
+    } else {
+      print("Falied to log in.");
+    }
+    }
+    else{
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text(
+        'Выставьте оценку или заполните все поля!',
+      )));
+    }
   }
 }

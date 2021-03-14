@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
@@ -74,7 +73,7 @@ class _MedicationPageState extends State<MedicationPage> {
         print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
-          list.add(Medication(j['name'], j['manufacturer']['name'], j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+          list.add(Medication(j['name'], j['manufacturer']['name'],'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg', j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
         }
         setState(() {
           medicationList = list;
@@ -82,3 +81,6 @@ class _MedicationPageState extends State<MedicationPage> {
       }).catchError((error) => print(error));
   }
 }
+
+
+// j['photo']

@@ -1,7 +1,7 @@
 class Review{
   final String owner;
   final String date;
-  final String rating;
+  final double rating;
   final String text;
 
 

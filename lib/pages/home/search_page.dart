@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -104,7 +103,7 @@ class _SearchPageState extends State<SearchPage> {
         print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
-          list.add(Medication(j['name'], j['manufacturer']['name'], j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+          list.add(Medication(j['name'], j['manufacturer']['name'], 'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg' , j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
         }
         setState(() {
           medicationList = list;
@@ -112,3 +111,6 @@ class _SearchPageState extends State<SearchPage> {
       }).catchError((error) => print(error));
   }
 }
+
+
+// j['photo']

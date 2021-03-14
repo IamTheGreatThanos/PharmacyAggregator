@@ -41,25 +41,6 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               getText("Введите название лекарства", Icons.search),
-              // TextField(
-              //   onTap: () {
-              //     SystemChannels.textInput.invokeMethod('TextInput.hide');
-              //     Navigator.push(context,
-              //         MaterialPageRoute(builder: (context) => SearchPage()));
-              //   },
-              //   controller: _searchController,
-              //   cursorColor: Colors.indigo[300],
-              //   decoration: InputDecoration(
-              //     hintText: "Введите название лекарства",
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     hoverColor: Colors.indigo,
-              //     suffixIcon: Icon(Icons.search),
-              //     contentPadding:
-              //         EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(top: 14),
                 child: Text("Категории лекарств",

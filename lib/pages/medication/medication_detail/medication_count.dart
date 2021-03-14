@@ -54,7 +54,7 @@ class _MedicationCountState extends State<MedicationCount> {
                 trailing: Text(array2[index], style: TextStyle(fontSize: 15, color: Colors.black54)),
                 tileColor: Colors.white,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PharmacyPage(Pharmacy(widget.listPharmacy[index]['index'],widget.listPharmacy[index]['pharmacy'], widget.listPharmacy[index]['count'], widget.listPharmacy[index]['price'],widget.listPharmacy[index]['product']))),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PharmacyPage(Pharmacy(widget.listPharmacy[index]['id'],widget.listPharmacy[index]['pharmacy'], widget.listPharmacy[index]['count'], widget.listPharmacy[index]['price'],widget.listPharmacy[index]['product']))),);
               }),
             );
           }),

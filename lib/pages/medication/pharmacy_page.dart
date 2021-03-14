@@ -45,7 +45,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
       body: new TabBarView(
         children: <Widget>[
           PharmacyDescription(widget.pharmacy),
-          MedicationReview() ,
+          MedicationReview(widget.pharmacy) ,
         ],
       ),
       ),
