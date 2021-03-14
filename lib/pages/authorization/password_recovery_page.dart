@@ -119,42 +119,43 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
   }
 
   void rec(String login) async {
-    String jsonString = await recover(
-      login
-    );
-    Map<String, dynamic> status = jsonDecode(jsonString);
-    // print(status['status']);
-
-    if (status['status'] == "ok") {
-      // print("status ok");
+    String jsonString = await recover(login);
+    if (jsonString != null){
+      Map<String, dynamic> status = jsonDecode(jsonString);
+      if (status['status'] == "ok") {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => SignInPage()) //login, password ,
+        );
+      } else {
+        Navigator.pop(context);
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text('Проверьте соединения с интернетом или попробуйте позже!')));
+      }
+    }
+    else{
       Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => SignInPage()) //login, password ,
-      );
-    } else {
-      Navigator.pop(context);
-      _scaffoldKey.currentState.showSnackBar(SnackBar(
-          content: Text(
-        'Проверьте соединения с интернетом или попробуйте позже!',
-      )));
-      // print("status no ok");
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text(
+          'Неверный логин или пароль!',
+        )));
     }
   }
 
   Future<String> recover(String login) async {
-    final response = await http.post(AppConstants.baseUrl + "users/phone/",
+    final response = await http.post(AppConstants.baseUrl + "users/change/password/",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'login': login,
+          'username': login,
         }));
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception("Falied to registration");
+      return null;
     }
   }
 }

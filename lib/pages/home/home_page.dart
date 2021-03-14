@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
+import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/home/search_page.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_data.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_page.dart';
-import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,10 +18,12 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _searchController = new TextEditingController();
   FocusNode focusNode = new FocusNode();
 
+  List<Medication> medicationList = [];
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    getProducts();
     focusNode.unfocus();
   }
 
@@ -31,6 +36,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
     return Scaffold(
       appBar: buildAppBar("Главная"),
       backgroundColor: Colors.white,
@@ -123,32 +131,47 @@ class _HomePageState extends State<HomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 12, left: 5, right: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // CircleImage(
-                    //     onTap: () => {
-                    //     Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MedicationData()))
-                    // },
-                    //     iconData: Icons.favorite_border,
-                    //     titleText: "Навтизин капли назальные"),
-                    // CircleImage(
-                    //     onTap: () => {
-                    //     Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MedicationData()))
-                    // },
-                    //     iconData: Icons.favorite_border,
-                    //     titleText: "Навтизин капли назальные"),
-                    // CircleImage(
-                    //     onTap: () => {
-                    //     Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MedicationData()))
-                    // },
-                    //     iconData: Icons.favorite_border,
-                    //     titleText: "Навтизин капли назальные"),
-                  ],
+                child: SizedBox(
+                  height: (medicationList.length~/3+1)*itemWidth,
+                  child: GridView.count(
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    crossAxisCount: 3,
+                    physics: new NeverScrollableScrollPhysics(),
+                    childAspectRatio: (itemWidth / itemHeight),
+                    children: List.generate(medicationList.length, (index) {
+                      return CircleImage(
+                          onTap: () => {
+                            Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MedicationData(medicationList[index])))
+                          },
+                          iconData: Icons.favorite_border,
+                          titleText: medicationList[index].name
+                      );
+                    }),
+                  ),
                 ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                    // for (int j = 0; j < medicationList.length%3; j++) 
+                    
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                    // CircleImage(
+                    //     onTap: () => {
+                    //     Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => MedicationData()))
+                    // },
+                    //     iconData: Icons.favorite_border,
+                    //     titleText: "Навтизин капли назальные"),
+                  // ],
+                // ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -220,6 +243,30 @@ class _HomePageState extends State<HomePage> {
             )),
       ),
     );
+  }
+
+  getProducts() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('Token');
+    await http.get(
+      "${AppConstants.baseUrl}product/recomendation/",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          "Authorization": "Token $token"
+        },
+      ).then((response) {
+        List<Medication> list = List<Medication>();
+        var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
+        print(responseBody);
+        for (Object i in responseBody){
+          Map<String,dynamic> j = i;
+          list.add(Medication(j['name'], j['manufacturer']['name'], 'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg' , j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+        }
+        setState(() {
+          medicationList = list;
+        });
+      }).catchError((error) => print(error));
   }
 }
 

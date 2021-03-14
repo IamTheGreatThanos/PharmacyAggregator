@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,7 +12,6 @@ import 'package:pharmacy_aggregator/pages/medication/medication_data.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_item.dart';
 import 'package:pharmacy_aggregator/pages/notification/notification_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class SearchPage extends StatefulWidget {
   @override
