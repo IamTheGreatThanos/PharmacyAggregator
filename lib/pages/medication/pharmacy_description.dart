@@ -26,7 +26,7 @@ class _PharmacyDescriptionState extends State<PharmacyDescription> {
             child: Column(
               children: [
                 Image.network(
-                  'http://phaggregator.herokuapp.com/media/%D0%9C%D0%B5%D0%B7%D0%B8%D0%BC%20%D1%84%D0%BE%D1%80%D1%82%D0%B5%20%D1%82%D0%B0%D0%B1.%20%D0%BF/%D0%BE%20%E2%84%9680/bd3976d59c3207b51c6c1a40611e9120.png',
+                  'http://phaggregator.herokuapp.com/media/%D0%9C%D0%B5%D0%B7%D0%B8%D0%BC%20%D1%84%D0%BE%D1%80%D1%82%D0%B5%20%D1%82%D0%B0%D0%B1.%20%D0%BF/%D0%BE%20%E2%84%9680/8645.jpg',
                   width: MediaQuery.of(context).size.width / 3,
                   height: MediaQuery.of(context).size.width / 3,
                 ),
