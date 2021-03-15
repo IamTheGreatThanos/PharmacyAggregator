@@ -29,7 +29,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.white,
-      appBar: buildAppBar('Аптека "Forte+"'),
+      appBar: buildAppBar(widget.pharmacy.pharmacy["name"]),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children:[
@@ -161,7 +161,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
           "Authorization": "Token $token"
         },
         body: jsonEncode(<String, dynamic>{
-          'pharmacy': widget.pharmacy.id,
+          'pharmacy': widget.pharmacy.pharmacy["id"],
           'text': commentController.text,
           'rating': rating.toDouble()
         }));

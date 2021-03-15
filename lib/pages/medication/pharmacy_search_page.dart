@@ -4,16 +4,18 @@ import 'package:pharmacy_aggregator/models/pharmacy.dart';
 import 'package:pharmacy_aggregator/models/pharmacy_search_model.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_description.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_review.dart';
+import 'package:pharmacy_aggregator/pages/medication/medication_review_search.dart';
 import 'package:pharmacy_aggregator/pages/medication/pharmacy_description.dart';
+import 'package:pharmacy_aggregator/pages/medication/pharmacy_description_search.dart';
 
-class PharmacyPage extends StatefulWidget {
-  Pharmacy pharmacy;
-  PharmacyPage(this.pharmacy);
+class PharmacySearchPage extends StatefulWidget {
+  PharmacySearch pharmacy;
+  PharmacySearchPage(this.pharmacy);
   @override
-  _PharmacyPageState createState() => _PharmacyPageState();
+  _PharmacySearchPageState createState() => _PharmacySearchPageState();
 }
 
-class _PharmacyPageState extends State<PharmacyPage> {
+class _PharmacySearchPageState extends State<PharmacySearchPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(length: 2, child: Scaffold(
@@ -34,22 +36,22 @@ class _PharmacyPageState extends State<PharmacyPage> {
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
-          bottom:
-          TabBar(
-              labelColor: Colors.black45,
-              tabs: [
-                Tab(text: "Описание", ),
-                Tab(text:  "Отзывы"),
+        bottom:
+        TabBar(
+            labelColor: Colors.black45,
+            tabs: [
+              Tab(text: "Описание", ),
+              Tab(text:  "Отзывы"),
 
-              ]),
+            ]),
       ),
       body: new TabBarView(
         children: <Widget>[
-          PharmacyDescription(widget.pharmacy),
-          MedicationReview(widget.pharmacy) ,
+          PharmacyDescriptionSearch(widget.pharmacy),
+          MedicationReviewSearch(widget.pharmacy),
         ],
       ),
-      ),
+    ),
     );
   }
 }

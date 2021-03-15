@@ -25,10 +25,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.indigo[300],
-        canvasColor: Colors.indigo[900],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          primaryColor: Colors.indigo[300],
+          canvasColor: Colors.indigo[900],
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          tooltipTheme: TooltipThemeData(
+            decoration: ShapeDecoration(
+              color: Color(0xFF232F34),
+              shape: StadiumBorder(),
+            ),
+          )),
       home: FutureBuilder<bool>(
         future: isRegister(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {

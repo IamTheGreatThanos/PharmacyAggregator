@@ -20,7 +20,8 @@ class _MedicationReviewState extends State<MedicationReview> {
   @override
   void initState() {
     super.initState();
-    getReview(widget.pharmacy.id);
+    // print(widget.pharmacy.pharmacy["id"]);
+    getReview(widget.pharmacy.pharmacy["id"]);
   }
   
   @override
