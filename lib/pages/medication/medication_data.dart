@@ -14,7 +14,7 @@ class MedicationData extends StatefulWidget {
 class _MedicationDataState extends State<MedicationData> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 1, child: Scaffold(
+    return DefaultTabController(length: 2, child: Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -37,11 +37,13 @@ class _MedicationDataState extends State<MedicationData> {
               labelColor: Colors.black45,
               tabs: [
                 Tab(text: "Описание"),
+                Tab(text: "Отзывы"),
               ]),
       ),
       body: new TabBarView(
         children: <Widget>[
           MedicationDescription(widget.medication),
+          MedicationReview(widget.medication),
         ],
       ),
       ),

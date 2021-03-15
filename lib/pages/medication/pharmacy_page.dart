@@ -5,6 +5,7 @@ import 'package:pharmacy_aggregator/models/pharmacy_search_model.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_description.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_review.dart';
 import 'package:pharmacy_aggregator/pages/medication/pharmacy_description.dart';
+import 'package:pharmacy_aggregator/pages/medication/pharmacy_review.dart';
 
 class PharmacyPage extends StatefulWidget {
   Pharmacy pharmacy;
@@ -46,7 +47,7 @@ class _PharmacyPageState extends State<PharmacyPage> {
       body: new TabBarView(
         children: <Widget>[
           PharmacyDescription(widget.pharmacy),
-          MedicationReview(widget.pharmacy) ,
+          PharmacyReview(widget.pharmacy) ,
         ],
       ),
       ),

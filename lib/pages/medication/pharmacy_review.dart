@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/models/pharmacy.dart';
 import 'package:pharmacy_aggregator/models/review.dart';
-import 'package:pharmacy_aggregator/pages/medication/write_medication_review_page.dart';
 import 'package:pharmacy_aggregator/pages/medication/write_review_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class MedicationReview extends StatefulWidget {
-  Medication medication;
-  MedicationReview(this.medication);
+class PharmacyReview extends StatefulWidget {
+  Pharmacy pharmacy;
+  PharmacyReview(this.pharmacy);
   @override
-  _MedicationReviewState createState() => _MedicationReviewState();
+  _PharmacyReviewState createState() => _PharmacyReviewState();
 }
 
-class _MedicationReviewState extends State<MedicationReview> {
+class _PharmacyReviewState extends State<PharmacyReview> {
   List<Review> reviewList = [];
 
   @override
   void initState() {
     super.initState();
     // print(widget.pharmacy.pharmacy["id"]);
-    getReview(widget.medication.id);
+    getReview(widget.pharmacy.pharmacy["id"]);
   }
   
   @override
@@ -42,7 +40,7 @@ class _MedicationReviewState extends State<MedicationReview> {
               child: Center(child: Text('Оставить отзыв', style: TextStyle(fontSize: 16, color: Colors.white),))
             ),
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => WriteMedicationReviewPage(widget.medication)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => WriteReviewPage(widget.pharmacy)));
             },
           )
         ),
@@ -143,7 +141,7 @@ class _MedicationReviewState extends State<MedicationReview> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('Token');
     await http.get(
-      "${AppConstants.baseUrl}product/review/p/$id",
+      "${AppConstants.baseUrl}product/review/$id",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Accept": "application/json",

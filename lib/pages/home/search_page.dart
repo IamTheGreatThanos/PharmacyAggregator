@@ -168,6 +168,7 @@ class _SearchPageState extends State<SearchPage> {
       for (Object i in responseBody) {
         Map<String, dynamic> j = i;
         list.add(Medication(
+            j['id'],
             j['name'],
             j['manufacturer']['name'],
             'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg',
