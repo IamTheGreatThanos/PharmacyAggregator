@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(1))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/1.png',
                         titleText: "Лекарственные препараты"),
                     CircleButton(
                         onTap: () =>
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(2))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/2.png',
                         titleText: "Медицинские изделия и приборы"),
                     CircleButton(
                         onTap: () =>
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(3))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/3.png',
                         titleText: "Травы, сборы, бальзамы"),
                   ],
                 ),
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(4))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/4.png',
                         titleText: "Витамины и БАДы"),
                     CircleButton(
                         onTap: () =>
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(5))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/5.png',
                         titleText: "Косметика  и средства гигиены"),
                     CircleButton(
                         onTap: () =>
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => MedicationPage(6))),
-                        iconData: Icons.favorite_border,
+                        iconData: 'assets/images/6.png',
                         titleText: "Мама и малыш"),
                   ],
                 ),
@@ -320,7 +320,7 @@ class CircleImage extends StatelessWidget {
 
 class CircleButton extends StatelessWidget {
   final GestureTapCallback onTap;
-  final IconData iconData;
+  final String iconData;
   final String titleText;
 
   const CircleButton({Key key, this.onTap, this.iconData, this.titleText})
@@ -345,9 +345,8 @@ class CircleButton extends StatelessWidget {
                 color: Colors.indigo[900],
                 shape: BoxShape.circle,
               ),
-              child: new Icon(
+              child: new Image.asset(
                 iconData,
-                color: Colors.white,
               ),
             ),
           ),
