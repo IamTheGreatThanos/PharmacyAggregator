@@ -38,7 +38,7 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
                   child: Text('Забыли пароль?', style: TextStyle(color: Colors.white, fontSize: 22, fontFamily: 'Montserrat Regular'),),
                 ),
                 SizedBox(height: 10),
-                Text('Напишите ваш email для сброса пароля. Мы вам отправим ссылку сброса на почту.', style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Montserrat Regular'), textAlign: TextAlign.center,),
+                Text('Напишите ваш email для сброса пароля. Мы отправим вам письмо на почту.', style: TextStyle(color: Colors.white, fontSize: 15, fontFamily: 'Montserrat Regular'), textAlign: TextAlign.center,),
                 SizedBox(
                   height: 20,
                 ),
@@ -47,7 +47,7 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
                   children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text('Login', style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Montserrat Regular')),
+                    child: Text('Email', style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Montserrat Regular')),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
