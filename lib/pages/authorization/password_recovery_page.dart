@@ -18,6 +18,7 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: buildAppBar(' '),
       backgroundColor: Colors.white,
       body: Container(child: 
@@ -139,7 +140,7 @@ class _PasswordRecoveryPageState extends State<PasswordRecoveryPage> {
       Navigator.pop(context);
         _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text(
-          'Неверный логин или пароль!',
+          'Неверный email!',
         )));
     }
   }
