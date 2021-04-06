@@ -20,6 +20,8 @@ class _MedicationPageState extends State<MedicationPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   new GlobalKey<RefreshIndicatorState>();
 
+  var arr = ["Лекарственные препараты","Медицинские изделия и приборы", "Травы, сборы, бальзамы", "Витамины и БАДы", "Косметика  и средства гигиены", "Мама и малыш"];
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +33,7 @@ class _MedicationPageState extends State<MedicationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar('Лекарственные препараты'),
+      appBar: buildAppBar(arr[widget.index-1]),
       backgroundColor: Colors.white,
       // backgroundColor: Colors.deepPurpleAccent[100],
       body: RefreshIndicator(
@@ -73,7 +75,14 @@ class _MedicationPageState extends State<MedicationPage> {
         print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
-          list.add(Medication(j['id'], j['name'], j['manufacturer']['name'],'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg', j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+          var count = false;
+          for (var k in j['available']){
+            if (k['count'] != 0){
+              count = true;
+              print(k['count']);
+            }
+          }
+          list.add(Medication(j['id'], j['name'], j['manufacturer']['name'],j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', count, j['composition'], j['available']));
         }
         setState(() {
           medicationList = list;

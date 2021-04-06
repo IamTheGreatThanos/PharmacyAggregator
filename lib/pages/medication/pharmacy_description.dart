@@ -26,7 +26,7 @@ class _PharmacyDescriptionState extends State<PharmacyDescription> {
             child: Column(
               children: [
                 Image.network(
-                  'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg',
+                  widget.pharmacy.pharmacy['photo'],
                   width: MediaQuery.of(context).size.width / 3,
                   height: MediaQuery.of(context).size.width / 3,
                 ),
