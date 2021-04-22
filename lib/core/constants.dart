@@ -14,4 +14,7 @@ class AppFonts {
 
 class AppConstants {
   static final String baseUrl = "http://178.128.152.206/";
+  static final deviceToken = "deviceToken";
+  static final isSendedDeviceToken = "isSended";
+
 }

@@ -141,6 +141,7 @@ class _MedicationReviewState extends State<MedicationReview> {
             Divider(color: Colors.black)
         ]
       )),
+
     );
   }
 

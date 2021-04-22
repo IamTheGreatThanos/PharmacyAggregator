@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "28721904462",
+    "project_id": "agregator-a9ad2",
+    "storage_bucket": "agregator-a9ad2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28721904462:android:3555f79e922296597f3c1f",
+        "android_client_info": {
+          "package_name": "com.example.pharmacy_aggregator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28721904462-k0fkg8s8ghoaqrm9j1ds02gg0n3a13ph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJrGYTGHqy6cL8tzQQcG4tFIzEdmK-7AE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28721904462-k0fkg8s8ghoaqrm9j1ds02gg0n3a13ph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

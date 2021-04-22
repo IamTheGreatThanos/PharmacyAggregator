@@ -164,10 +164,13 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void reg(String login, String password) async {
+    print(login);
+    print(password);
     String jsonString = await logIn(
       login,
       password,
     );
+    print(jsonString);
     if (jsonString != null){
       Map<String, dynamic> status = jsonDecode(jsonString);
       print(status);
@@ -209,7 +212,9 @@ class _SignInPageState extends State<SignInPage> {
           'username': login,
           'password': password,
         }));
+    print(response.statusCode);
     if (response.statusCode == 200) {
+      print(response.body);
       return response.body;
     } else {
       return null;

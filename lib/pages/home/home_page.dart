@@ -5,6 +5,7 @@ import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/home/search_page.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_data.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_page.dart';
+import 'package:pharmacy_aggregator/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getProducts();
+    sendDeviceToken();
     focusNode.unfocus();
   }
 
@@ -244,6 +246,41 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
+  sendDeviceToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      var isSended =
+      sharedPreferences.getBool(AppConstants.isSendedDeviceToken);
+      if (isSended == null || isSended == false) {
+        var token = sharedPreferences.getString("Token");
+        var deviceToken = sharedPreferences.getString(AppConstants.deviceToken);
+        print(deviceToken);
+        if (deviceToken != null){
+          var url = "${AppConstants.baseUrl}users/push/register/";
+          var headers = {
+            "Accept": "application/json",
+            "Authorization": "Token $token"
+          };
+          final response = await http.post(url, headers: headers, body: {
+            "reg_id": deviceToken,
+            // "cmt": "fcm",
+          });
+
+          if (response.statusCode == 200) {
+            Map<String, dynamic> status = jsonDecode(response.body);
+            if (status['status'] == "ok") {
+              print("send device token");
+              sharedPreferences.setBool(AppConstants.isSendedDeviceToken, true);
+              // print("sended device token");
+            }
+          }
+        }
+
+      }
+    }
+
+
 
   getProducts() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
