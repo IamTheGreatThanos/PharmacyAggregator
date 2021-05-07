@@ -28,7 +28,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.width * 0.14,
+        height: MediaQuery.of(context).size.width * 0.19,
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           elevation: 15.0,

@@ -61,6 +61,7 @@ class _MedicationPageState extends State<MedicationPage> {
   getProducts() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('Token');
+    print('${AppConstants.baseUrl}product/?category=${widget.index}');
     await http.get(
       "${AppConstants.baseUrl}product/?category=${widget.index}",
         headers: <String, String>{
@@ -69,17 +70,14 @@ class _MedicationPageState extends State<MedicationPage> {
           "Authorization": "Token $token"
         },
       ).then((response) {
-        print(response.statusCode);
         List<Medication> list = List<Medication>();
         var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
-        print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
           var count = false;
           for (var k in j['available']){
             if (k['count'] != 0){
               count = true;
-              print(k['count']);
             }
           }
           list.add(Medication(j['id'], j['name'], j['manufacturer']['name'],j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', count, j['composition'], j['available']));

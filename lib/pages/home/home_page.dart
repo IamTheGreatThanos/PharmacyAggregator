@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
       if (isSended == null || isSended == false) {
         var token = sharedPreferences.getString("Token");
         var deviceToken = sharedPreferences.getString(AppConstants.deviceToken);
-        print(deviceToken);
+        // print(deviceToken);
         if (deviceToken != null){
           var url = "${AppConstants.baseUrl}users/push/register/";
           var headers = {
