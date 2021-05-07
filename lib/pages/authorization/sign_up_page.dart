@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
       password,
     );
     Map<String, dynamic> status = jsonDecode(jsonString);
-
+    print(status);
     if (status['status'] == "ok") {
       Navigator.pop(context);
       _scaffoldKey.currentState.showSnackBar(SnackBar(
