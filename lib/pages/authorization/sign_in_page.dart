@@ -168,6 +168,7 @@ class _SignInPageState extends State<SignInPage> {
       login,
       password,
     );
+    print(jsonString);
     if (jsonString != null){
       Map<String, dynamic> status = jsonDecode(jsonString);
       print(status);
