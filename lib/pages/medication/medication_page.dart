@@ -61,7 +61,6 @@ class _MedicationPageState extends State<MedicationPage> {
   getProducts() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('Token');
-    print('${AppConstants.baseUrl}product/?category=${widget.index}');
     await http.get(
       "${AppConstants.baseUrl}product/?category=${widget.index}",
         headers: <String, String>{
