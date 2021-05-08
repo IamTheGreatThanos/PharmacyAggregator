@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
@@ -147,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MedicationData(medicationList[index])))
                           },
-                          iconData: Icons.favorite_border,
+                          imgURL: medicationList[index].img,
                           titleText: medicationList[index].name
                       );
                     }),
@@ -295,10 +296,15 @@ class _HomePageState extends State<HomePage> {
       ).then((response) {
         List<Medication> list = List<Medication>();
         var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
-        print(responseBody);
+        // print(responseBody);
         for (Object i in responseBody){
           Map<String,dynamic> j = i;
-          list.add(Medication(j['id'], j['name'], j['manufacturer']['name'], 'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg' , j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+          if (j['available'].length != 0){
+            list.add(Medication(j['id'], j['name'], j['manufacturer']['name'], j['photo'] , j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', true, j['composition'], j['available']));
+          }
+          else{
+            list.add(Medication(j['id'], j['name'], j['manufacturer']['name'], j['photo'] , j['description'], 'от 0 тг.', true, j['composition'], j['available']));
+          }
         }
         setState(() {
           medicationList = list;
@@ -309,10 +315,10 @@ class _HomePageState extends State<HomePage> {
 
 class CircleImage extends StatelessWidget {
   final GestureTapCallback onTap;
-  final IconData iconData;
+  final String imgURL;
   final String titleText;
 
-  const CircleImage({Key key, this.onTap, this.iconData, this.titleText})
+  const CircleImage({Key key, this.onTap, this.imgURL, this.titleText})
       : super(key: key);
 
   @override
@@ -333,8 +339,23 @@ class CircleImage extends StatelessWidget {
                 decoration: new BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.network(
-                    "https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg")),
+                child: CachedNetworkImage(
+                      imageUrl: imgURL,
+                      imageBuilder: (context, imageProvider) => Container(
+                        // width: MediaQuery.of(context).size.width / 3,
+                        // height: MediaQuery.of(context).size.width / 3,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              colorFilter:
+                                  ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                        ),
+                      ),
+                      placeholder: (context, url) => CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error, size: size),
+                    ),
+              ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8),

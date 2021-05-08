@@ -72,6 +72,7 @@ class _MedicationPageState extends State<MedicationPage> {
         List<Medication> list = List<Medication>();
         var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
         for (Object i in responseBody){
+          print(i);
           Map<String,dynamic> j = i;
           var count = false;
           for (var k in j['available']){
@@ -79,7 +80,12 @@ class _MedicationPageState extends State<MedicationPage> {
               count = true;
             }
           }
-          list.add(Medication(j['id'], j['name'], j['manufacturer']['name'],j['photo'], j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', count, j['composition'], j['available']));
+          if (j['available'].length != 0){
+            list.add(Medication(j['id'], j['name'], j['manufacturer']['name'], j['photo'] , j['description'], 'от ' + j['available'][0]['price'].toString() + 'тг.', count, j['composition'], j['available']));
+          }
+          else{
+            list.add(Medication(j['id'], j['name'], j['manufacturer']['name'], j['photo'] , j['description'], 'от 0 тг.', count, j['composition'], j['available']));
+          }
         }
         setState(() {
           medicationList = list;
