@@ -3,6 +3,7 @@ import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/pages/notification/notification_item.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'core/constants.dart';
+import 'favorites/favorites_page.dart';
 import 'pages/home/home_page.dart';
 import 'pages/notification/notification_page.dart';
 import 'pages/profile/profile_page.dart';
@@ -18,7 +19,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   final List<Widget> _children = [
     HomePage(),
     NotificationPage(),
-    RecordPage(),
+    FavoritesPage(),
     ProfilePage()
   ];
 
@@ -52,9 +53,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.assignment_rounded,
+                Icons.favorite_border,
               ),
-              label: "Учет",
+              label: "Избранные",
             ),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль")
           ],
