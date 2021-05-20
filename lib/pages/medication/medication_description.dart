@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
@@ -5,6 +6,9 @@ import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_composition.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_count.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_detail/medication_feature.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 // ignore: must_be_immutable
 class MedicationDescription extends StatefulWidget {
@@ -15,25 +19,57 @@ class MedicationDescription extends StatefulWidget {
 }
 
 class _MedicationDescriptionState extends State<MedicationDescription> {
+  final globalKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    print(widget.medication.img);
     return Scaffold(
-       backgroundColor: Colors.white,
+      key: globalKey,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Image.network(
-                  widget.medication.img,
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: MediaQuery.of(context).size.width / 3,
+                CachedNetworkImage(
+                  imageUrl: widget.medication.img,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: MediaQuery.of(context).size.width / 3,
+                    height: MediaQuery.of(context).size.width / 3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          ),
+                    ),
+                  ),
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error, size: MediaQuery.of(context).size.width / 3,),
                 ),
+                // Image.network(
+                //   widget.medication.img,
+                //   width: MediaQuery.of(context).size.width / 3,
+                //   height: MediaQuery.of(context).size.width / 3,
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, left: 4, right: 4),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Center(
+                        child: SizedBox(
+                          width: 140,
+                          child: RaisedButton( 
+                            child: Text("В избранное", style: TextStyle(fontSize: 14),),  
+                            onPressed: (){
+                              addToFavorite(widget.medication.id);
+                            },
+                            color: Colors.indigo[900],  
+                            textColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                        ),
+                      ),
                       getTitle("Торговое название"),
                       getText(widget.medication.name),
                       getTitle("Производитель"),
@@ -120,5 +156,24 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
             )),
       ),
     );
+  }
+
+  addToFavorite(int productID) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('Token');
+    await http.post(
+      "${AppConstants.baseUrl}product/favorites",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          "Authorization": "Token $token"
+        },
+        body: jsonEncode(<String, dynamic>{
+          'id': productID,
+        })
+      ).then((response) {
+        final snackBar = SnackBar(content: Text('Добавлено в избранное!'));
+        globalKey.currentState.showSnackBar(snackBar);
+      }).catchError((error) => print(error));
   }
 }

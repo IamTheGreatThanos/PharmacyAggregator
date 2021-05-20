@@ -30,7 +30,7 @@ class _MedicationReviewState extends State<MedicationReview> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height,
+        // height: MediaQuery.of(context).size.height,
         color: Colors.white,
         child:Column(
         children: [

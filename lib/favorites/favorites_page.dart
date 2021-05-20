@@ -57,7 +57,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('Token');
     await http.get(
-      "${AppConstants.baseUrl}product/?category=2",
+      "${AppConstants.baseUrl}product/favorites",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           "Accept": "application/json",
@@ -65,6 +65,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
         },
       ).then((response) {
         List<Medication> list = List<Medication>();
+        print(response.body);
         var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
         for (Object i in responseBody){
           print(i);
