@@ -139,10 +139,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
         address
       );
       Map<String, dynamic> status = jsonDecode(jsonString);
-      print(status);
 
       if (status['status'] == "ok") {
-        // print("status ok");
         Navigator.pop(context);
         Navigator.pop(context);
         // Navigator.push(
@@ -156,7 +154,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
             content: Text(
           'Проверьте соединения с интернетом или попробуйте позже!',
         )));
-        // print("status no ok");
       }
     }
     else{
@@ -170,16 +167,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<String> changeProfile(String login,String email,String address,) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id = prefs.getInt('uid');
+    var token = prefs.getString('Token');
     final response = await http.post(AppConstants.baseUrl + "users/list/${id}/",
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'username': login,
-          'email': email,
-          'address': address,
-          
-        }));
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8",
+        "Accept": "application/json",
+        "Authorization": "Token $token"
+      },
+      body: jsonEncode(<String, String>{
+        'username': login,
+        'email': email,
+        'address': address,
+        
+      })
+    );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       return response.body;
     } else {
