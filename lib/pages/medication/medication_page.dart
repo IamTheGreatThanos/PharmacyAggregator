@@ -20,7 +20,7 @@ class _MedicationPageState extends State<MedicationPage> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
   new GlobalKey<RefreshIndicatorState>();
 
-  var arr = ["Лекарственные препараты","Медицинские изделия и приборы", "Травы, сборы, бальзамы", "Витамины и БАДы", "Косметика  и средства гигиены", "Мама и малыш"];
+  var arr = ["Лекарственные препараты","Медицинские изделия и приборы", "Мама и малыш", "Травы, сборы, бальзамы", "Витамины и БАДы", "Косметика  и средства гигиены"];
 
   @override
   void initState() {

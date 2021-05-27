@@ -20,9 +20,16 @@ class MedicationDescription extends StatefulWidget {
 
 class _MedicationDescriptionState extends State<MedicationDescription> {
   final globalKey = GlobalKey<ScaffoldState>();
+  var favorites = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getFavorites();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(widget.medication.img);
     return Scaffold(
       key: globalKey,
       backgroundColor: Colors.white,
@@ -60,7 +67,7 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
                         child: SizedBox(
                           width: 140,
                           child: RaisedButton( 
-                            child: Text("В избранное", style: TextStyle(fontSize: 14),),  
+                            child: !favorites.contains(widget.medication.id)?Text("В избранное", style: TextStyle(fontSize: 14)):Center(child:Text("Убрать", style: TextStyle(fontSize: 14))), 
                             onPressed: (){
                               addToFavorite(widget.medication.id);
                             },
@@ -172,8 +179,32 @@ class _MedicationDescriptionState extends State<MedicationDescription> {
           'id': productID,
         })
       ).then((response) {
-        final snackBar = SnackBar(content: Text('Добавлено в избранное!'));
+        final snackBar = SnackBar(content: Text('Выполнено!'));
         globalKey.currentState.showSnackBar(snackBar);
+        getFavorites();
+      }).catchError((error) => print(error));
+  }
+
+  getFavorites() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.getString('Token');
+    await http.get(
+      "${AppConstants.baseUrl}product/favorites",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Accept": "application/json",
+          "Authorization": "Token $token"
+        },
+      ).then((response) {
+        List<int> list = List<int>();
+        var responseBody = jsonDecode(utf8.decode(response.body.codeUnits));
+        for (Object i in responseBody){
+          Map<String,dynamic> j = i;
+          list.add(j['id']);
+        }
+        setState(() {
+          favorites = list;
+        });
       }).catchError((error) => print(error));
   }
 }
