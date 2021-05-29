@@ -168,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var id = prefs.getInt('uid');
     var token = prefs.getString('Token');
-    final response = await http.post(AppConstants.baseUrl + "users/list/${id}/",
+    final response = await http.put(AppConstants.baseUrl + "users/list/${id}/",
       headers: <String, String>{
         "Content-Type": "application/json; charset=UTF-8",
         "Accept": "application/json",
