@@ -43,7 +43,7 @@ class MedicationItem extends StatelessWidget {
             //   item.img,
             //   width: MediaQuery.of(context).size.width / 3,
             //   height: MediaQuery.of(context).size.width / 3,
-            // ),
+            // ), 
             Flexible(
               child: Column(
                 mainAxisSize: MainAxisSize.max,

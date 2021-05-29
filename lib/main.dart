@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'bottom_navigation_page.dart';
 
 
-
-
 void main() {
   runApp(MyApp());
 }

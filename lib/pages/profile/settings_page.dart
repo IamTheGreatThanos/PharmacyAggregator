@@ -5,6 +5,7 @@ import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
+import 'package:app_settings/app_settings.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -57,6 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     Switch(
                       value: isSwitched2,
                       onChanged: (value) {
+                        AppSettings.openNotificationSettings();
                         setState(() {
                           isSwitched2 = value;
                         });
