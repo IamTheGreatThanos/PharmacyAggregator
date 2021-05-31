@@ -1,42 +1,37 @@
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:async/async.dart';
-import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pharmacy_aggregator/components/appBar.dart';
 import 'package:pharmacy_aggregator/core/constants.dart';
-import 'package:pharmacy_aggregator/main.dart';
-import 'package:pharmacy_aggregator/pages/record/pharmacy_page.dart';
-import 'package:pharmacy_aggregator/pages/record/record_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:async/async.dart';
+import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
 
-class CreatePharmacy extends StatefulWidget {
+class CreateMedicine extends StatefulWidget {
   @override
-  _CreatePharmacyState createState() => _CreatePharmacyState();
+  _CreateMedicineState createState() => _CreateMedicineState();
 }
 
-class _CreatePharmacyState extends State<CreatePharmacy> {
+class _CreateMedicineState extends State<CreateMedicine> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController workingHoursController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController compositionController = TextEditingController();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController manufactureController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController countController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   var avatarImage = DecorationImage(
       fit: BoxFit.fill,
       image: AssetImage("assets/images/Add_ava_placeholder.png"));
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildAppBar('Создать аптеку'),
+        appBar: buildAppBar('Добавить лекарство'),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Container(
@@ -65,7 +60,7 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black12,
-                        hintText: "Название аптеки"),
+                        hintText: "Название лекарство"),
                   ),
                 ),
                 Padding(
@@ -73,11 +68,11 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                       horizontal: 10.0, vertical: 10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: addressController,
+                    controller: descriptionController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black12,
-                        hintText: "Адрес"),
+                        hintText: "Описание"),
                   ),
                 ),
                 Padding(
@@ -85,7 +80,7 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                       horizontal: 10.0, vertical: 10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: cityController,
+                    controller: compositionController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black12,
@@ -97,11 +92,11 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                       horizontal: 10.0, vertical: 10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: phoneController,
+                    controller: categoryController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black12,
-                        hintText: "Контакт"),
+                        hintText: "Категория"),
                   ),
                 ),
                 Padding(
@@ -109,11 +104,35 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                       horizontal: 10.0, vertical: 10),
                   child: TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: workingHoursController,
+                    controller: manufactureController,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black12,
-                        hintText: "Время работы"),
+                        hintText: "Производитель"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: priceController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.black12,
+                        hintText: "Цена"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: countController,
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.black12,
+                        hintText: "Количество"),
                   ),
                 ),
                 Padding(
@@ -129,20 +148,23 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                                 if (value)
                                   {
                                     if (nameController.text.isNotEmpty &&
-                                        cityController.text.isNotEmpty &&
-                                        addressController.text.isNotEmpty &&
-                                        workingHoursController
-                                            .text.isNotEmpty &&
-                                        phoneController.text.isNotEmpty &&
+                                        compositionController.text.isNotEmpty &&
+                                        categoryController.text.isNotEmpty &&
+                                        manufactureController.text.isNotEmpty &&
+                                        descriptionController.text.isNotEmpty &&
+                                        priceController.text.isNotEmpty &&
+                                        countController.text.isNotEmpty &&
                                         isChoosedImage)
                                       {
                                         upload(
                                             choosedImage,
                                             nameController.text,
-                                            cityController.text,
-                                            addressController.text,
-                                            workingHoursController.text,
-                                            phoneController.text),
+                                            descriptionController.text,
+                                            compositionController.text,
+                                            categoryController.text,
+                                            manufactureController.text,
+                                            priceController.text,
+                                            countController.text),
                                         createAlertDialog(context)
                                       }
                                     else
@@ -174,7 +196,7 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
                         color: Colors.amber[600],
                         elevation: 3.0,
                         child: Text(
-                          "Отправить",
+                          "Создать",
                           style: TextStyle(
                             fontSize: 16,
                           ),
@@ -201,33 +223,33 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
         choosedImage = image;
         avatarImage =
             DecorationImage(fit: BoxFit.fill, image: FileImage(image));
-
       }
     });
   }
 
-  upload(File imageFile, String name, String city, String address,
-      String workingHours, String phone) async {
+  upload(File imageFile, String name, String description, String composition,
+      String category, String manufacturer, String price, String count) async {
     var stream =
         new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
     var length = await imageFile.length();
 
-    var uri = Uri.parse(AppConstants.baseUrl + "product/pharmacy/create/");
+    var uri = Uri.parse(AppConstants.baseUrl + "product/create/");
 
     var request = new http.MultipartRequest("POST", uri);
     var token = await getToken();
     request.headers['authorization'] = "Token $token";
 
-    request.fields["name"]= name;
-    request.fields["address"] = address;
-    request.fields["city"] = city;
-    request.fields["phone"] = phone;
-    request.fields["working_hours"] = workingHours;
+    request.fields["name"] = name;
+    request.fields["description"] = description;
+    request.fields["composition"] = composition;
+    request.fields["category"] = category;
+    request.fields["manufacturer"] = manufacturer;
+    request.fields["price"] = price;
+    request.fields["count"] = count;
 
     var multipartFile = new http.MultipartFile('photo', stream, length,
         filename: basename(imageFile.path));
     request.files.add(multipartFile);
-
 
     var response = await request.send();
 
@@ -236,17 +258,18 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
     // });
 
     if (response.statusCode == 200) {
+      print(response.statusCode);
+      Navigator.pop(this.context);
+      // Navigator.of(this.context).popUntil((route) => route.isFirst);
 
-      Navigator.pop(this.context);
-      Navigator.pop(this.context);
-      Navigator.push(
-          this.context,
-          MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  RecordPage()) //login, password ,
-          );
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setBool(AppConstants.isHaveFarm, true);
+      // Navigator.push(
+      //     this.context,
+      //     MaterialPageRoute(
+      //         builder: (BuildContext context) =>
+      //             PharmacyPage())
+      // );
+      // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
     } else {
       print(response.statusCode);
       Navigator.pop(this.context);
@@ -258,55 +281,5 @@ class _CreatePharmacyState extends State<CreatePharmacy> {
     }
   }
 
-// void create(String name, String city, String address, String workingHours,
-//     String phone) async {
-//   String jsonString =
-//       await createPharm(name, city, address, workingHours, phone);
-//   Map<String, dynamic> status = jsonDecode(jsonString);
-//   // print(status['status']);
-//
-//   if (status['status'] == "ok") {
-//     print("status ok");
-//     Navigator.pop(context);
-//     Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//             builder: (BuildContext context) =>
-//                 PharmacyPage()) //login, password ,
-//         );
-//   } else {
-//     Navigator.pop(context);
-//     _scaffoldKey.currentState.showSnackBar(SnackBar(
-//         content: Text(
-//       'Проверьте соединения с интернетом или попробуйте позже!',
-//     )));
-//     // print("status no ok");
-//   }
-// }
-//
-//
-// Future<String> createPharm(String name, String city, String address,
-//     String workingHours, String phone) async {
-//   var sharedPreferences=await SharedPreferences.getInstance();
-//   var token = sharedPreferences.getString('Token');
-//   final response =
-//       await http.post(AppConstants.baseUrl + "/product/pharmacy/create/",
-//           headers: <String, String>{
-//             'Content-Type': 'application/json; charset=UTF-8',
-//             "Accept": "application/json",
-//             "Authorization": "Token $token"
-//           },
-//           body: jsonEncode(<String, String>{
-//             'name': name,
-//             "address": address,
-//             "city": city,
-//             "phone": phone,
-//             "working_hours": workingHours
-//           }));
-//   if (response.statusCode == 200) {
-//     return response.body;
-//   } else {
-//     throw Exception("Falied to create pharmacy");
-//   }
-// }
+
 }

@@ -3,6 +3,7 @@ import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_description.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_review.dart';
+import 'package:pharmacy_aggregator/pages/medication/similar_page.dart';
 
 class MedicationData extends StatefulWidget {
   Medication medication;
@@ -14,7 +15,7 @@ class MedicationData extends StatefulWidget {
 class _MedicationDataState extends State<MedicationData> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(length: 2, child: Scaffold(
+    return DefaultTabController(length: 3, child: Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -27,7 +28,6 @@ class _MedicationDataState extends State<MedicationData> {
         automaticallyImplyLeading: true,
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
-
         bottomOpacity: 1,
         iconTheme: IconThemeData(
           color: Colors.black,
@@ -38,12 +38,14 @@ class _MedicationDataState extends State<MedicationData> {
               tabs: [
                 Tab(text: "Описание"),
                 Tab(text: "Отзывы"),
+                Tab(text: "Похожие")
               ]),
       ),
       body: new TabBarView(
         children: <Widget>[
           MedicationDescription(widget.medication),
           MedicationReview(widget.medication),
+          SimilarPage(widget.medication.id),
         ],
       ),
       ),

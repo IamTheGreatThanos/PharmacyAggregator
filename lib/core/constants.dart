@@ -17,4 +17,6 @@ class AppConstants {
   static final deviceToken = "deviceToken";
   static final isSendedDeviceToken = "isSended";
   static final isHaveFarm = "isHaveFarm";
+  // static final isPermittedNotif= "isPermittedNotif";
+
 }

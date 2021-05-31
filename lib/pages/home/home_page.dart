@@ -6,7 +6,6 @@ import 'package:pharmacy_aggregator/models/medication.dart';
 import 'package:pharmacy_aggregator/pages/home/search_page.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_data.dart';
 import 'package:pharmacy_aggregator/pages/medication/medication_page.dart';
-import 'package:pharmacy_aggregator/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -226,11 +225,8 @@ class _HomePageState extends State<HomePage> {
             }
           }
         }
-
       }
     }
-
-
 
   getProducts() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -260,6 +256,8 @@ class _HomePageState extends State<HomePage> {
         });
       }).catchError((error) => print(error));
   }
+
+
 }
 
 class CircleImage extends StatelessWidget {

@@ -6,6 +6,7 @@ import 'package:pharmacy_aggregator/core/constants.dart';
 import 'package:pharmacy_aggregator/pages/authorization/sign_in_page.dart';
 import 'package:pharmacy_aggregator/utils/utils.dart';
 import 'package:app_settings/app_settings.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -17,8 +18,16 @@ class _SettingsPageState extends State<SettingsPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController textController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   bool isSwitched = false;
   bool isSwitched2 = false;
+
+  @override
+  void initState() {
+    // check();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,4 +84,22 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+  // void check() async {
+  //   print("asdasdasd");
+  //   var status = await Permission.notification.status;
+  //   if (status.isGranted) {
+  //     print("asdasd");
+  //     setState(() {
+  //       isSwitched2 = true;
+  //     });
+  //
+  //   }
+  //   else {
+  //     setState(() {
+  //       isSwitched = false;
+  //     });
+  //
+  //   }
+  // }
 }
