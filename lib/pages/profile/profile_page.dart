@@ -154,8 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
       var model = PharmacyModel.fromJson(jsonDecode(response.body));
     // print("asdlkamsmdjlaskdjlaks");
       setState(() {
-        imgURL ="https://esgmarketingcoolproducts.com/repo/images/pharmacy-logo.jpg";
-        print(imgURL);
+        imgURL = AppConstants.baseUrl + model.photo;
+        // print(imgURL);
       });
     } else {
       print(response.statusCode);
