@@ -171,7 +171,7 @@ class _SearchPageState extends State<SearchPage> {
             j['id'],
             j['name'],
             j['manufacturer']['name'],
-            'https://ksintez.ru/upload/resize_cache/iblock/2ee/880_750_1/Naftizin.jpg',
+            j['photo'],
             j['description'],
             'от ' + j['available'][0]['price'].toString() + 'тг.',
             true,
@@ -202,7 +202,6 @@ class _SearchPageState extends State<SearchPage> {
       print(responseBody);
       for (Object i in responseBody) {
         var item = PharmacySearch.fromJson(i);
-        print("aa");
         list.add(item);
       }
 
