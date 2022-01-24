@@ -1,4 +1,4 @@
-# pharmacy_aggregator
+# Pharmacy aggregator
 
 A new Flutter project.
 
